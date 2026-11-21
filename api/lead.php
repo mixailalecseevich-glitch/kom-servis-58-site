@@ -11,7 +11,7 @@ if(!$origin && $ref && !preg_match('~^https://(www\.)?bioservice58\.ru/~',$ref))
 if(!empty($_POST['website']))jsonout(200,['ok'=>true]);
 foreach(['name','phone','service','comment'] as $field){if(isset($_POST[$field]) && !is_string($_POST[$field]))jsonout(400,['ok'=>false,'message'=>'Неверные данные формы.']);}
 $name=trim((string)($_POST['name']??''));$phone=trim((string)($_POST['phone']??''));$service=trim((string)($_POST['service']??''));$comment=trim((string)($_POST['comment']??''));
-$whitelist=['Биотуалеты','Грязезащитные ковры','Химчистка мебели','Клининг'];
+$whitelist=['Биотуалеты', 'Грязезащитные ковры', 'Химчистка мебели', 'Клининг', 'Услуги илососа', 'Откачка септиков', 'Устранение засоров', 'Для бизнеса'];
 if(!in_array($service,$whitelist,true) || mb_strlen($name)>80 || mb_strlen($comment)>700 || mb_strlen($name)<2 || mb_strlen($phone)>24 || !preg_match('/^[+0-9\s()\-]{10,24}$/u',$phone) || ($_POST['personal_consent']??'')!=='1')jsonout(422,['ok'=>false,'message'=>'Проверьте имя, телефон, услугу и согласие.']);
 // Ограничение частоты на сеанс. Без записи IP в журналы приложения.
 ini_set('session.use_strict_mode','1');ini_set('session.cookie_httponly','1');ini_set('session.cookie_samesite','Lax');
